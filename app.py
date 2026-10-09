@@ -118,6 +118,34 @@ contenido_seleccionado = st.sidebar.multiselect(
     sorted(df["contenido"].unique())
 )
 
+# --------------------------------------------------
+# CONTEXTO DE LOS FILTROS SELECCIONADOS
+# --------------------------------------------------
+
+contexto_mes = (
+    ", ".join(mes_seleccionado)
+    if mes_seleccionado
+    else "Todos"
+)
+
+contexto_canal = (
+    ", ".join(canal_seleccionado)
+    if canal_seleccionado
+    else "Todos"
+)
+
+contexto_campaña = (
+    ", ".join(campaña_seleccionada)
+    if campaña_seleccionada
+    else "Todas"
+)
+
+contexto_contenido = (
+    ", ".join(contenido_seleccionado)
+    if contenido_seleccionado
+    else "Todos"
+)
+
 # Copia del dataset para aplicar los filtros
 df_filtrado = df.copy()
 
@@ -183,6 +211,83 @@ roas_mediana = df_filtrado["ROAS"].median()
 roi_mediana = df_filtrado["ROI"].median()
 
 # --------------------------------------------------
+# VALORES GENERALES DE REFERENCIA
+# --------------------------------------------------
+
+ctr_general = df["CTR"].median()
+roas_general = df["ROAS"].median()
+roi_general = df["ROI"].median()
+
+# --------------------------------------------------
+# DIFERENCIAS FRENTE A LA REFERENCIA GENERAL
+# --------------------------------------------------
+
+dif_ctr = ctr_mediana - ctr_general
+dif_roas = roas_mediana - roas_general
+dif_roi = roi_mediana - roi_general
+
+
+# --------------------------------------------------
+# CLASIFICACIÓN CONTEXTUAL
+# --------------------------------------------------
+
+def clasificar_resultado(valor_actual, valor_general):
+    tolerancia = abs(valor_general) * 0.05
+
+    if valor_actual > valor_general + tolerancia:
+        return "por encima de"
+
+    elif valor_actual < valor_general - tolerancia:
+        return "por debajo de"
+
+    else:
+        return "similar a"
+
+
+nivel_ctr = clasificar_resultado(
+    ctr_mediana,
+    ctr_general
+)
+
+nivel_roas = clasificar_resultado(
+    roas_mediana,
+    roas_general
+)
+
+nivel_roi = clasificar_resultado(
+    roi_mediana,
+    roi_general
+)
+
+# --------------------------------------------------
+# SÍNTESIS EJECUTIVA DEL RESULTADO
+# --------------------------------------------------
+
+niveles = [nivel_ctr, nivel_roas, nivel_roi]
+
+cantidad_superior = niveles.count("por encima de")
+cantidad_inferior = niveles.count("por debajo de")
+
+if cantidad_superior >= 2:
+    sintesis_ejecutiva = (
+        "La selección actual presenta un desempeño general "
+        "superior a la referencia del conjunto analizado."
+    )
+
+elif cantidad_inferior >= 2:
+    sintesis_ejecutiva = (
+        "La selección actual presenta un desempeño general "
+        "inferior a la referencia del conjunto analizado."
+    )
+
+else:
+    sintesis_ejecutiva = (
+        "La selección actual presenta un comportamiento general "
+        "similar o mixto frente a la referencia del conjunto analizado."
+    )
+
+
+# --------------------------------------------------
 # RESULTADOS DEL NEGOCIO
 # --------------------------------------------------
 
@@ -228,6 +333,132 @@ col6.metric(
     "ROI mediano",
     f"{roi_mediana:.2f}%"
 )
+
+# --------------------------------------------------
+# INTERPRETACIÓN DE RESULTADOS
+# --------------------------------------------------
+
+# --------------------------------------------------
+# INTERPRETACIÓN DINÁMICA DE RESULTADOS
+# --------------------------------------------------
+
+st.header("📌 Interpretación de resultados")
+
+st.caption(
+    "Lectura educativa de los principales indicadores "
+    "según los filtros seleccionados."
+)
+
+st.markdown("#### Contexto analizado")
+
+st.write(
+    f"**Mes:** {contexto_mes}  |  "
+    f"**Canal:** {contexto_canal}  |  "
+    f"**Campaña:** {contexto_campaña}  |  "
+    f"**Contenido:** {contexto_contenido}"
+)
+
+st.markdown(
+    f"""
+**CTR mediano — {ctr_mediana:.2f}%**
+
+Este indicador muestra qué proporción de las impresiones generó clics.
+Permite comprender la capacidad del contenido para atraer la atención
+del público hacia una acción.
+
+**ROAS mediano — {roas_mediana:.2f}**
+
+Por cada **RD\\$1.00 invertido**, los datos de la selección actual muestran
+aproximadamente **RD\\${roas_mediana:.2f} en ingresos**.
+
+**ROI mediano — {roi_mediana:.2f}%**
+
+Este indicador refleja la rentabilidad obtenida en relación con la
+inversión dentro de los datos analizados.
+"""
+)
+
+st.markdown("#### Comparación con el conjunto general")
+
+st.write(
+    f"• **CTR:** la selección actual presenta un resultado **{nivel_ctr}** "
+    f"la referencia general "
+    f"({dif_ctr:+.2f} puntos porcentuales)."
+)
+
+st.write(
+    f"• **ROAS:** la selección actual presenta un resultado **{nivel_roas}** "
+    f"la referencia general "
+    f"({dif_roas:+.2f})."
+)
+
+st.write(
+    f"• **ROI:** la selección actual presenta un resultado **{nivel_roi}** "
+    f"la referencia general "
+    f"({dif_roi:+.2f} puntos porcentuales)."
+)
+
+st.markdown("#### Síntesis ejecutiva")
+
+st.info(sintesis_ejecutiva)
+
+st.caption(
+    "La comparación utiliza como referencia los valores medianos "
+    "del conjunto general de datos demostrativos. La clasificación "
+    "es descriptiva y utiliza una tolerancia del 5 % para identificar "
+    "resultados similares, superiores o inferiores a la referencia."
+)
+
+# --------------------------------------------------
+# PRESENTACIÓN DE SERVICIOS PROFESIONALES
+# --------------------------------------------------
+
+st.caption(
+    "Los valores cambian automáticamente según los filtros seleccionados. "
+    "Esta interpretación tiene fines educativos y demostrativos y no "
+    "constituye una recomendación específica de inversión."
+)
+
+
+st.divider()
+
+st.header("🚀 Servicios profesionales de Sur Wake Up")
+
+st.markdown(
+    """
+**Sur Wake Up — Analítica e Inteligencia de Datos**
+
+Transformamos datos en conocimiento para comprender resultados,
+identificar tendencias y apoyar decisiones.
+
+### Nuestras especialidades
+
+**1. Inteligencia Empresarial y Marketing**
+
+Análisis de negocios, publicidad digital, indicadores de
+rendimiento, modelos predictivos y asesoría para nuevos
+emprendedores, Micros, Pequeñas y Medianas Empresas.
+
+**2. Inteligencia y Análisis Político — Área en desarrollo**
+
+Análisis de opinión pública, tendencias, conversación digital
+e indicadores políticos mediante metodologías basadas en datos.
+
+**3. Inteligencia y Analítica Deportiva — Béisbol — Área en desarrollo**
+
+Análisis estadístico de jugadores y equipos, comparaciones
+de rendimiento, tendencias deportivas y modelos predictivos.
+
+---
+
+Nuestro dashboard empresarial actual demuestra capacidades
+analíticas. Los diagnósticos, estrategias y recomendaciones
+específicas se desarrollan mediante servicios profesionales
+personalizados.
+"""
+)
+
+
 
 
 # --------------------------------------------------
@@ -528,7 +759,6 @@ with st.form("formulario_predictivo"):
     # EJECUTAR PREDICCIÓN
     # --------------------------------------------------
 
-
     if ejecutar_prediccion:
 
         # --------------------------------------------------
@@ -609,12 +839,12 @@ with st.form("formulario_predictivo"):
         limite_inferior = minimo - margen
         limite_superior = maximo + margen
 
-        if valor < limite_inferior or valor > limite_superior:
+    if valor < limite_inferior or valor > limite_superior:
 
-            fuera_de_rango.append(
-                f"{nombre}: {valor:,.2f} "
-                f"(rango histórico: {minimo:,.2f} - {maximo:,.2f})"
-            )
+        fuera_de_rango.append(
+              f"{nombre}: {valor:,.2f} "
+              f"(rango histórico: {minimo:,.2f} - {maximo:,.2f})"
+        )
 
     if fuera_de_rango:
         st.warning(
