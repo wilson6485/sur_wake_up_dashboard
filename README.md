@@ -10,7 +10,7 @@ Sur Wake Up es un proyecto tecnológico orientado a transformar datos en informa
 
 Análisis de indicadores comerciales, campañas publicitarias, rendimiento de canales digitales, modelos predictivos y asesoría para emprendedores, Micros, Pequeñas y Medianas Empresas.
 
-**Estado:** Dashboard demostrativo de y publicado.
+**Estado:** Dashboard demostrativo desarrollado y publicado.
 
 ### Inteligencia y Análisis Político
 
