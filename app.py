@@ -10,8 +10,13 @@ import joblib
 st.set_page_config(
     page_title="Sur Wake Up",
     page_icon="📊",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
+
+# Navegación de apoyo para pantallas pequeñas.
+st.markdown('<span id="inicio-dashboard"></span><style>.swu-menu{position:fixed;bottom:16px;right:16px;z-index:1000;width:260px;max-width:calc(100vw - 32px);font:15px/1.5 sans-serif;background:#142842;color:#fff;border:1px solid #7397c9;border-radius:10px;box-shadow:0 3px 14px #0005}.swu-menu summary{padding:12px 16px;cursor:pointer;color:#fff}.swu-menu a{display:block;padding:10px 16px;color:#fff!important;text-decoration:none}.swu-menu a:hover{background:#294c77}.swu-menu[open]{max-height:70vh;overflow-y:auto}.swu-destino{scroll-margin-top:80px}html{scroll-behavior:smooth}section[data-testid="stMain"]{padding-bottom:80px}</style><details class="swu-menu"><summary>☰ Ir a una sección</summary><a href="#swu-resumen" target="_self">Resumen ejecutivo</a><a href="#swu-interpretacion" target="_self">Interpretación de resultados</a><a href="#swu-servicios" target="_self">Servicios profesionales</a><a href="#swu-visual" target="_self">Análisis visual</a><a href="#swu-combinaciones" target="_self">Combinaciones estratégicas</a><a href="#swu-predictiva" target="_self">Inteligencia predictiva</a><a href="#inicio-dashboard" target="_self">↑ Volver arriba</a></details>', unsafe_allow_html=True)
+st.caption("En el celular, los filtros están en el panel lateral. Usa el control de la esquina superior izquierda para abrirlo o cerrarlo.")
 
 # --------------------------------------------------
 # ENCABEZADO
@@ -195,6 +200,7 @@ if df_filtrado.empty:
 
 st.divider()
 
+st.markdown('<div id="swu-resumen" class="swu-destino"></div>', unsafe_allow_html=True)
 st.header("📊 Resumen ejecutivo")
 
 st.caption(
@@ -342,6 +348,7 @@ col6.metric(
 # INTERPRETACIÓN DINÁMICA DE RESULTADOS
 # --------------------------------------------------
 
+st.markdown('<div id="swu-interpretacion" class="swu-destino"></div>', unsafe_allow_html=True)
 st.header("📌 Interpretación de resultados")
 
 st.caption(
@@ -422,6 +429,7 @@ st.caption(
 
 st.divider()
 
+st.markdown('<div id="swu-servicios" class="swu-destino"></div>', unsafe_allow_html=True)
 st.header("🚀 Servicios profesionales de Sur Wake Up")
 
 st.markdown(
@@ -472,6 +480,7 @@ st.divider()
 # ANÁLISIS VISUAL
 # --------------------------------------------------
 
+st.markdown('<div id="swu-visual" class="swu-destino"></div>', unsafe_allow_html=True)
 st.header("📈 Análisis visual")
 
 st.caption(
@@ -560,6 +569,7 @@ st.divider()
 # COMBINACIONES ESTRATÉGICAS
 # --------------------------------------------------
 
+st.markdown('<div id="swu-combinaciones" class="swu-destino"></div>', unsafe_allow_html=True)
 st.header("🎯 Combinaciones estratégicas")
 
 st.caption(
@@ -655,6 +665,7 @@ st.dataframe(
 
 st.divider()
 
+st.markdown('<div id="swu-predictiva" class="swu-destino"></div>', unsafe_allow_html=True)
 st.header("🤖 Inteligencia Predictiva")
 
 st.caption(
