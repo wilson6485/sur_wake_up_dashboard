@@ -11,12 +11,12 @@ st.set_page_config(
     page_title="Sur Wake Up",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Navegación de apoyo para pantallas pequeñas.
-st.markdown('<span id="inicio-dashboard"></span><style>.swu-menu{position:fixed;bottom:16px;right:16px;z-index:1000;width:260px;max-width:calc(100vw - 32px);font:15px/1.5 sans-serif;background:#142842;color:#fff;border:1px solid #7397c9;border-radius:10px;box-shadow:0 3px 14px #0005}.swu-menu summary{padding:12px 16px;cursor:pointer;color:#fff}.swu-menu a{display:block;padding:10px 16px;color:#fff!important;text-decoration:none}.swu-menu a:hover{background:#294c77}.swu-menu[open]{max-height:70vh;overflow-y:auto}.swu-destino{scroll-margin-top:80px}html{scroll-behavior:smooth}section[data-testid="stMain"]{padding-bottom:80px}</style><details class="swu-menu"><summary>☰ Ir a una sección</summary><a href="#swu-resumen" target="_self">Resumen ejecutivo</a><a href="#swu-interpretacion" target="_self">Interpretación de resultados</a><a href="#swu-servicios" target="_self">Servicios profesionales</a><a href="#swu-visual" target="_self">Análisis visual</a><a href="#swu-combinaciones" target="_self">Combinaciones estratégicas</a><a href="#swu-predictiva" target="_self">Inteligencia predictiva</a><a href="#inicio-dashboard" target="_self">↑ Volver arriba</a></details>', unsafe_allow_html=True)
-st.caption("En el celular, los filtros están en el panel lateral. Usa el control de la esquina superior izquierda para abrirlo o cerrarlo.")
+st.markdown('<span id="inicio-dashboard"></span><style>.swu-menu{position:fixed;bottom:16px;right:16px;z-index:1000;width:260px;max-width:calc(100vw - 32px);font:15px/1.5 sans-serif;background:#142842;color:#fff;border:1px solid #7397c9;border-radius:10px;box-shadow:0 3px 14px #0005}.swu-menu summary{padding:12px 16px;cursor:pointer;color:#fff}.swu-menu a{display:block;padding:10px 16px;color:#fff!important;text-decoration:none}.swu-menu a:hover{background:#294c77}.swu-menu[open]{max-height:70vh;overflow-y:auto}.swu-destino{scroll-margin-top:80px}html{scroll-behavior:smooth}section[data-testid="stMain"]{padding-bottom:80px}</style><details class="swu-menu"><summary>☰ Ir a una sección</summary><a href="#swu-filtros" target="_self">Filtros de análisis</a><a href="#swu-resumen" target="_self">Resumen ejecutivo</a><a href="#swu-interpretacion" target="_self">Interpretación de resultados</a><a href="#swu-servicios" target="_self">Servicios profesionales</a><a href="#swu-visual" target="_self">Análisis visual</a><a href="#swu-combinaciones" target="_self">Combinaciones estratégicas</a><a href="#swu-predictiva" target="_self">Inteligencia predictiva</a><a href="#inicio-dashboard" target="_self">↑ Volver arriba</a></details>', unsafe_allow_html=True)
+st.caption("Abre Filtros de análisis, elige tus opciones y cierra el panel para ver los resultados. Los filtros se aplican automáticamente.")
 
 # --------------------------------------------------
 # ENCABEZADO
@@ -97,31 +97,33 @@ modelos_predictivos = cargar_modelos()
 # FILTROS INTERACTIVOS
 # --------------------------------------------------
 
-st.sidebar.header("Filtros")
-
-meses = sorted(
-    df["fecha"].dt.to_period("M").astype(str).unique()
-)
-
-mes_seleccionado = st.sidebar.multiselect(
-    "Mes",
-    meses
-)
-
-canal_seleccionado = st.sidebar.multiselect(
-    "Canal",
-    sorted(df["canal"].unique())
-)
-
-campaña_seleccionada = st.sidebar.multiselect(
-    "Campaña",
-    sorted(df["campaña"].unique())
-)
-
-contenido_seleccionado = st.sidebar.multiselect(
-    "Contenido",
-    sorted(df["contenido"].unique())
-)
+st.markdown('<div id="swu-filtros" class="swu-destino"></div>', unsafe_allow_html=True)
+with st.expander("Filtros de análisis", expanded=False):
+    
+    meses = sorted(
+        df["fecha"].dt.to_period("M").astype(str).unique()
+    )
+    
+    mes_seleccionado = st.multiselect(
+        "Mes",
+        meses
+    )
+    
+    canal_seleccionado = st.multiselect(
+        "Canal",
+        sorted(df["canal"].unique())
+    )
+    
+    campaña_seleccionada = st.multiselect(
+        "Campaña",
+        sorted(df["campaña"].unique())
+    )
+    
+    contenido_seleccionado = st.multiselect(
+        "Contenido",
+        sorted(df["contenido"].unique())
+    )
+    
 
 # --------------------------------------------------
 # CONTEXTO DE LOS FILTROS SELECCIONADOS
