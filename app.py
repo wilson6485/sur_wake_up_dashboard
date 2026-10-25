@@ -449,10 +449,28 @@ Análisis de negocios, publicidad digital, indicadores de
 rendimiento, modelos predictivos y asesoría para nuevos
 emprendedores, Micros, Pequeñas y Medianas Empresas.
 
-**2. Inteligencia y Análisis Político — Área en desarrollo**
+**2. Inteligencia y Análisis Político**
 
-Análisis de opinión pública, tendencias, conversación digital
-e indicadores políticos mediante metodologías basadas en datos.
+**Observatorio Político de Azua — Primera edición**
+
+Primer subproyecto del Observatorio Político Dominicano,
+cuyo desarrollo nacional continúa. Consulta documental de la
+gestión 2024–2028: autoridades municipales del municipio de Azua
+y representantes congresuales de la provincia.
+
+Los datos corresponden a hallazgos documentados en fuentes públicas
+consultadas hasta el 23/10/2026. La cobertura es parcial; las menciones
+no equivalen a logros u obras ni permiten comparar desempeño.
+Una actividad no incluida no significa que no haya ocurrido.
+
+[Consultar el Observatorio Político de Azua](https://observatorio-azua-sur-wake-up.wrg000999.chatgpt.site)
+
+Los funcionarios y sus equipos pueden aportar documentos verificables
+para ampliar o corregir sus perfiles. El Observatorio revisará esos
+aportes con los mismos criterios para todos. La falta de respuesta
+no se interpreta como ausencia de actividad.
+
+**Observatorio Político Dominicano — En desarrollo.**
 
 **3. Inteligencia y Analítica Deportiva — Béisbol — Área en desarrollo**
 
